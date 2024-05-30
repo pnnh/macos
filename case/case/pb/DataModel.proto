@@ -1,0 +1,22 @@
+
+
+syntax = "proto3";
+
+package slave;
+
+service Slave {
+  // 发送文字消息
+  rpc Send(SendRequest) returns (Empty) {}
+}
+
+message Empty {
+}
+
+message SendRequest {
+  //int64 userId = 1;
+  //int32 scope  = 5;
+  int32 head   = 7;
+  bytes body   = 8;
+  string mid   = 9;
+  string sid = 10;  // 会话ID
+}

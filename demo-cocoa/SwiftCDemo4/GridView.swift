@@ -20,6 +20,8 @@ struct GridView: View {
         self.publisher = publisher
     }
     
+    @State var active:(Int, Int) = (0, 0)
+    
     func getPath(index: Int) -> String {
         if index < dataFiles.count {
             return dataFiles[index]
@@ -29,16 +31,27 @@ struct GridView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 10){
+        VStack(alignment: .leading, spacing: 8){
             
             ForEach(0..<dataFiles.count / Int(columnCount) + 1, id: \.self) { rowIndex in
-                HStack(alignment: .top, spacing: 10) {
+                HStack(alignment: .top, spacing: 8) {
                     ForEach(0..<Int(columnCount), id: \.self) { colIndex in
                         
-                        EmoView2(path: getPath(index: rowIndex * Int(columnCount) + colIndex),
-                                 colWidth: 0 ,publisher: self.publisher)
-                            .frame(  maxWidth: .infinity)
-                            .background(Color.white).cornerRadius(5)
+                        Button(action: {
+                            print("jjjdfs3")
+                            self.active = (rowIndex, colIndex)
+                            // 打开窗口
+                            showWindow(imgPath: getPath(index: rowIndex * Int(columnCount) + colIndex))
+                        }) {
+                            EmoView2(path: getPath(index: rowIndex * Int(columnCount) + colIndex),
+                                     colWidth: 0 )
+                                .frame(  maxWidth: .infinity)
+                                .background(Color.white).cornerRadius(2).overlay(
+                            
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .stroke(Color.blue, lineWidth: self.active == (rowIndex, colIndex) ? 2 : 0 )
+                                )
+                        }.buttonStyle(EmptyButtonStyle()).padding(2)
                         //Text("sss \(gp2.size.width), \(gp2.size.height)")
                         
                     }
@@ -50,13 +63,13 @@ struct GridView: View {
 }
 
 
-class Model: ObservableObject {
-    init() {
-        print("Model Created")
-    }
-    @Published var imageText: String = "图片备注"
-    @Published var show: Bool = false
-}
+//class Model: ObservableObject {
+//    init() {
+//        print("Model Created")
+//    }
+//    @Published var imageText: String = "图片备注"
+//    @Published var show: Bool = false
+//}
 
 struct EmoView2: View {
     

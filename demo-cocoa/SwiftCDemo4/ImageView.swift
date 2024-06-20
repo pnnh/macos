@@ -17,20 +17,30 @@ struct SJImageView: NSViewRepresentable {
         print("SJImageView updateView")
     }
     
-    private var image:NSImage
+    private var image:NSImage?
     
-    init(image: NSImage ) {
+    
+    init(image: NSImage) {
         self.image = image
+    }
+    
+    init(imagePath: String) {
+        self.image = NSImage(contentsOfFile: imagePath)
     }
      
     
     func makeNSView(context: Context) -> NSImageView {
-
-        let rect = NSRect(x: 0, y: 0, width: 100, height: 100)
+        
+        let rect = NSRect(x: 0, y: 0, width: 600, height: 600)
         let view = NSImageView(frame: rect)
-        //view.imageScaling = .scaleProportionallyDown
-        view.animates = true
-        view.image = self.image
+        view.imageFrameStyle = .photo
+        view.isEditable = false
+        view.imageScaling = .scaleProportionallyUpOrDown
+            view.animates = true
+        
+        if self.image != nil {
+            view.image = self.image
+        }
          
         return view
     }

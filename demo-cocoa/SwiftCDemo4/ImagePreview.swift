@@ -51,3 +51,17 @@ struct ImagePreview : View {
         }.background(Color.blue)
     }
 }
+
+class PreviewModel: ObservableObject {
+    init() {
+        print("PreviewModel Created")
+    }
+    @Published var imagePath: String = "Documents/kong.png"
+    @Published var Image: NSImage = NSImage(contentsOfFile: "Documents/kong.png")!
+    
+    func TestPrint(path: String) {
+        self.imagePath = path
+        print("PreviewModel imagePath \(path) \(self.imagePath)")
+    }
+    
+}

@@ -87,14 +87,14 @@ class QQBaseWindow : NSWindow, NSWindowDelegate {
         // 按指定步长调整宽度
         //newSize.width = CGFloat((Int(frameSize.width) / 150 + 1) * 150)
         
-        if newSize.width < 900 {
-            newSize.width = 900
+        if newSize.width < 1152 {
+            newSize.width = 1152
         }
         if newSize.width > 1600 {
             newSize.width = 1600
         }
-        if newSize.height < 600 {
-            newSize.height = 600
+        if newSize.height < 768 {
+            newSize.height = 768
         }
         if newSize.height > 1000 {
             newSize.height = 1000

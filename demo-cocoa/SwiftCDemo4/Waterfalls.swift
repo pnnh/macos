@@ -72,14 +72,18 @@ struct WaterfallsView: View {
                                 .font(Font.system(size: 14, design: .default))
                             Spacer()
                             Button(action: {
-                                    
+                            
+                                print("打开文件")
+                                let url = promptForWorkingDirectoryPermission()
                                 
-                                print("===3")
+                                if let mustUrl = url {
+                                    self.showImages(path: mustUrl.path)
+                                }
                                 
                             } ) {
                                 
                                 Image(nsImage: NSImage(systemSymbolName: "plus.circle", accessibilityDescription: nil)!)
-                            }
+                            }.buttonStyle(EmptyButtonStyle())
                         }
                         HStack{
                             Image(nsImage: NSImage(systemSymbolName: "folder", accessibilityDescription: nil)!)
